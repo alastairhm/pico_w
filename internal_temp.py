@@ -15,6 +15,7 @@ class GetInternalTemp:
         """Read the Internal Temp Sensor"""
         reading = self.sensor_temp.read_u16() * self.convert
         self.temperature = 27 - (reading - 0.706) / 0.001721
+        return self.temperature
 
 
 if __name__ == "__main__":
