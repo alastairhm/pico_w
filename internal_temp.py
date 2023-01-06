@@ -17,9 +17,13 @@ class GetInternalTemp:
         self.temperature = 27 - (reading - 0.706) / 0.001721
         return self.temperature
 
+    def get_temp_f(self):
+        """Get Temp in Fahrenheit"""
+        return (self.get_temp() * 1.8) + 32
+
 
 if __name__ == "__main__":
     temp = GetInternalTemp()
     while True:
-        print(temp.get_temp())
+        print("%.4f C, %.4f F" % (temp.get_temp(), temp.get_temp_f()))
         utime.sleep(1)
