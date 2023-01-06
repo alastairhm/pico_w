@@ -1,6 +1,7 @@
 import machine
 import utime
 
+
 class GetInternalTemp:
     """Read the internal temp sensor"""
 
@@ -12,8 +13,9 @@ class GetInternalTemp:
 
     def get_temp(self):
         """Read the Internal Temp Sensor"""
-        reading = self.sensor_temp.read_u16() * convert
-        self.temperature = 27 - (reading - 0.706)/0.001721
+        reading = self.sensor_temp.read_u16() * self.convert
+        self.temperature = 27 - (reading - 0.706) / 0.001721
+
 
 if __name__ == "__main__":
     temp = GetInternalTemp()
