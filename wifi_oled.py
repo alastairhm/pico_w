@@ -3,6 +3,7 @@ import ssd1306
 import time
 import network
 
+
 def wifi_connection(file, max):
     """Connect to Wifi"""
 
@@ -37,10 +38,12 @@ def wifi_connection(file, max):
         print("ip = " + ip)
     return ip
 
+
 def setup_display(sda, scl, x=128, y=64, freq=400000):
     """Setup I2C Display"""
     i2c = machine.I2C(0, sda=sda, scl=scl, freq=freq)
     return ssd1306.SSD1306_I2C(x, y, i2c)
+
 
 def update_display(display, lines):
     """Update the Display"""
@@ -50,16 +53,16 @@ def update_display(display, lines):
     display.rect(0, 17, 127, 46, 1)
     y = 2
     for line in lines:
-        display.text(line,1,y)
-        y +=16
+        display.text(line, 1, y)
+        y += 16
     display.show()
+
 
 if __name__ == "__main__":
     sda = machine.Pin(0)
     scl = machine.Pin(1)
     display = setup_display(sda, scl)
-    update_display(display,["Connecting..."])
+    update_display(display, ["Connecting..."])
     ip_address = wifi_connection("wifi.txt", 10)
-    lines = [ip_address, "Hello","World"]
+    lines = [ip_address, "Hello", "World"]
     update_display(display, lines)
-
