@@ -7,7 +7,7 @@ class GetTemp:
 
     def __init__(self):
         """Init"""
-        self.sensor_temp = machine.ADC(4)
+        self.sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
         self.convert = 3.3 / 65535
         self.temperature = 0
 

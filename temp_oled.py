@@ -1,8 +1,9 @@
 import machine
 import ssd1306
-import time
+import utime
 import network
-
+import tmp36
+import internal_temp
 
 def wifi_connection(file, max):
     """Connect to Wifi"""
@@ -49,7 +50,7 @@ def update_display(display, lines, y_offset=2):
     """Update the Display"""
     clear_display(display)
     frames = [[0,0,128,16,1],[0,17,127,46,1]]
-    draw_frames(frames)
+    draw_frames(display, frames)
     y = y_offset
     for line in lines:
         display.text(line, 1, y)
@@ -75,3 +76,13 @@ if __name__ == "__main__":
     ip_address = wifi_connection("wifi.txt", 10)
     lines = [ip_address, "Hello", "World"]
     update_display(display, lines)
+    tmp36 = tmp36.GetTemp(2)
+    internal = internal_temp.GetTemp()
+    while True:
+        int_tmp = "Int " + str(internal.get_temp())+" C"
+        ext_tmp = "Ext " + str(tmp36.get_temp())+" C"
+        lines = [ip_address, int_tmp, ext_tmp]
+        print(int_tmp, ext_tmp)
+        update_display(display,lines)
+        utime.sleep(5)        
+
