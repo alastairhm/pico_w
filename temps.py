@@ -5,5 +5,5 @@ import utime
 tmp36 = tmp36.GetTemp(2)
 internal = internal_temp.GetTemp()
 while True:
-    print("TMP36 = %.4f C, Internal = %.4f C" % (tmp36.get_temp(), internal.get_temp()))
+    print("TMP36 = %s, Internal = %s" % (tmp36.get_temp_str(), internal.get_temp_str()))
     utime.sleep(2)

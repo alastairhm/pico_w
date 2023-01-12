@@ -4,11 +4,13 @@ import utime
 import network
 import tmp36
 import internal_temp
+import rp2
 
-def wifi_connection(file, max):
+def wifi_connection(file, max_try, country):
     """Connect to Wifi"""
 
     ip = "Not Connected"
+    rp2.country(country)
     f = open(file, "r")
     wifi_details = f.readline()
     f.close()
@@ -22,7 +24,7 @@ def wifi_connection(file, max):
 
     # Wait for connect or fail
     print("Connection to", ssid)
-    max_wait = max
+    max_wait = max_try
     while max_wait > 0:
         if wlan.status() < 0 or wlan.status() >= 3:
             break
@@ -73,14 +75,14 @@ if __name__ == "__main__":
     scl = machine.Pin(1)
     display = setup_display(sda, scl)
     update_display(display, ["Connecting..."])
-    ip_address = wifi_connection("wifi.txt", 10)
+    ip_address = wifi_connection("wifi.txt", 10, "UK")
     lines = [ip_address, "Hello", "World"]
     update_display(display, lines)
     tmp36 = tmp36.GetTemp(2)
     internal = internal_temp.GetTemp()
     while True:
-        int_tmp = "Int " + str(internal.get_temp())+" C"
-        ext_tmp = "Ext " + str(tmp36.get_temp())+" C"
+        int_tmp = "Int " + internal.get_temp_str()
+        ext_tmp = "Ext " + tmp36.get_temp_str()
         lines = [ip_address, int_tmp, ext_tmp]
         print(int_tmp, ext_tmp)
         update_display(display,lines)

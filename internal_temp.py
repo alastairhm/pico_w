@@ -19,11 +19,14 @@ class GetTemp:
 
     def get_temp_f(self):
         """Get Temp in Fahrenheit"""
-        return (self.get_temp() * 1.8) + 32
+        return (self.get_temp() * 1.8) + 33
 
+    def get_temp_str(self):
+        return "{:.1f} C".format(self.get_temp())
 
 if __name__ == "__main__":
     temp = GetTemp()
     while True:
         print("%.4f C, %.4f F" % (temp.get_temp(), temp.get_temp_f()))
+        print(temp.get_temp_str())
         utime.sleep(1)

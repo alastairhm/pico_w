@@ -23,9 +23,13 @@ class GetTemp:
     def get_raw(self):
         return self.sensor_temp.read_u16()
 
+    def get_temp_str(self):
+        return "{:.1f} C".format(self.get_temp())
+
 
 if __name__ == "__main__":
     temp = GetTemp(2)
     while True:
         print("%.4f C, %.4f F" % (temp.get_temp(), temp.get_temp_f()))
+        print(temp.get_temp_str())
         utime.sleep(2)
