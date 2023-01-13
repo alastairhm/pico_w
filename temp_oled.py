@@ -2,45 +2,8 @@ import machine
 import ssd1306
 import utime
 import network
-import tmp36
-import internal_temp
 import rp2
-
-def wifi_connection(file, max_try, country):
-    """Connect to Wifi"""
-
-    ip = "Not Connected"
-    rp2.country(country)
-    f = open(file, "r")
-    wifi_details = f.readline()
-    f.close()
-
-    ssid = wifi_details.split(" ")[0]
-    password = wifi_details.split(" ")[1]
-
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
-    wlan.connect(ssid, password)
-
-    # Wait for connect or fail
-    print("Connection to", ssid)
-    max_wait = max_try
-    while max_wait > 0:
-        if wlan.status() < 0 or wlan.status() >= 3:
-            break
-        max_wait -= 1
-        print("waiting for connection...")
-        time.sleep(1)
-
-    # Handle connection error
-    if wlan.status() != 3:
-        raise RuntimeError("network connection failed")
-    else:
-        print("connected")
-        ip = wlan.ifconfig()[0]
-        print("ip = " + ip)
-    return ip
-
+from library import internal_temp, tmp36, wifi
 
 def setup_display(sda, scl, x=128, y=64, freq=400000):
     """Setup I2C Display"""
@@ -75,7 +38,14 @@ if __name__ == "__main__":
     scl = machine.Pin(1)
     display = setup_display(sda, scl)
     update_display(display, ["Connecting..."])
-    ip_address = wifi_connection("wifi.txt", 10, "UK")
+    
+    f = open("wifi.txt", "r")
+    wifi_details = f.readline()
+    f.close()
+    credentials = {"ssid": wifi_details.split(" ")[0], "password" : wifi_details.split(" ")[1] }    
+    
+    wifi_instance = wifi.Wifi(credentials, 10, "UK")
+    ip_address = wifi_instance.get_ip()
     lines = [ip_address, "Hello", "World"]
     update_display(display, lines)
     tmp36 = tmp36.GetTemp(2)

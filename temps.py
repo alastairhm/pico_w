@@ -1,6 +1,5 @@
-import tmp36
-import internal_temp
 import utime
+from library import internal_temp, tmp36
 
 tmp36 = tmp36.GetTemp(2)
 internal = internal_temp.GetTemp()
