@@ -10,6 +10,7 @@ height = 64
 aspectRatio = 2
 
 chars = " .,-:;i+hHM$*#@ "
+clen = len(chars)
 
 rangeX = maxX-minX
 yScale = (rangeX)*(float(height)/width)*aspectRatio
@@ -20,9 +21,9 @@ for y in range(height):
     for x in range(width):
         c = complex(minX+x*(rangeX)/width, ytemp)
         z = c
-        for char in chars:
-            if abs(z) > 2:
-                break
+        colour = 0
+        while abs(z) <= 2 and colour < clen:
+            colour +=1
             z = z*z+c
-        line += char
+        line += chars[colour % clen ]
     print(line)
