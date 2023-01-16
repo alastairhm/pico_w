@@ -11,12 +11,14 @@ aspectRatio = 2
 
 chars = " .,-:;i+hHM$*#@ "
 
-yScale = (maxX-minX)*(float(height)/width)*aspectRatio
+rangeX = maxX-minX
+yScale = (rangeX)*(float(height)/width)*aspectRatio
 
 for y in range(height):
     line = ""
+    ytemp = y*yScale/height-yScale/2
     for x in range(width):
-        c = complex(minX+x*(maxX-minX)/width, y*yScale/height-yScale/2)
+        c = complex(minX+x*(rangeX)/width, ytemp)
         z = c
         for char in chars:
             if abs(z) > 2:
