@@ -18,10 +18,11 @@ clen = len(chars)
 
 rangeX = maxX-minX
 yScale = (rangeX)*(float(height)/width)*aspectRatio
+yScaleHalf = yScale/2
 
 for y in range(height):
     line = ""
-    ytemp = y*yScale/height-yScale/2
+    ytemp = y*yScale/height-yScaleHalf
     for x in range(width):
         c = complex(minX+x*(rangeX)/width, ytemp)
         z = c
