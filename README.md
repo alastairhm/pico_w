@@ -30,6 +30,6 @@ Some example for Raspberry Pi Pico W with MicroPython
 ## External Dependances
 
 * Library for SSD1306 OLED [micropython-ssd1306](https://github.com/stlehmann/micropython-ssd1306)
-+ Upload directory `max7219` to Pico from `micropython-max7219`.
+  + Upload directory `max7219` to Pico from `micropython-max7219`.
 * Library for MAX7219 LED Matrix [micropython-max7219](https://github.com/enchant97/micropython-max7219)
-+ Upload file `ssd1306.py` to Pico from `micropython-ssd1306`.
+  + Upload file `ssd1306.py` to Pico from `micropython-ssd1306`.
