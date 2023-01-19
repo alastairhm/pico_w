@@ -1,0 +1,6 @@
+[submodule "max7219"]
+	path = micropython-max7219
+	url = git@github.com:enchant97/micropython-max7219.git
+[submodule "micropython-ssd1306"]
+	path = micropython-ssd1306
+	url = git@github.com:stlehmann/micropython-ssd1306.git

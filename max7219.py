@@ -1,30 +1,12 @@
 """
 MicroPython max7219 cascadable 8x8 LED matrix driver
-https://github.com/mcauser/micropython-max7219
-
-MIT License
-Copyright (c) 2017 Mike Causer
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Licensed under MIT, found in LICENSE.txt
+    Copyright (c) 2017 Mike Causer
+    Copyright (c) 2022 Leo Spratt
+    https://github.com/enchant97/micropython-max7219
 """
 from micropython import const
-import framebuf
+from framebuf import FrameBuffer, MONO_HLSB
 
 _NOOP = const(0)
 _DIGIT0 = const(1)
@@ -34,48 +16,35 @@ _SCANLIMIT = const(11)
 _SHUTDOWN = const(12)
 _DISPLAYTEST = const(15)
 
-class Matrix8x8:
+
+class Matrix8x8(FrameBuffer):
     def __init__(self, spi, cs, num):
         """
         Driver for cascading MAX7219 8x8 LED matrices.
-
-        >>> import max7219
         >>> from machine import Pin, SPI
+        >>> from max7219 import Matrix8x8
         >>> spi = SPI(1)
-        >>> display = max7219.Matrix8x8(spi, Pin('X5'), 4)
-        >>> display.text('1234',0,0,1)
+        >>> display = Matrix8x8(spi, Pin('X5'), 4)
+        >>> display.text('1234')
         >>> display.show()
-
         """
-        self.spi = spi
-        self.cs = cs
-        self.cs.init(cs.OUT, True)
-        self.buffer = bytearray(8 * num)
-        self.num = num
-        fb = framebuf.FrameBuffer(self.buffer, 8 * num, 8, framebuf.MONO_HLSB)
-        self.framebuf = fb
-        # Provide methods for accessing FrameBuffer graphics primitives. This is a workround
-        # because inheritance from a native class is currently unsupported.
-        # http://docs.micropython.org/en/latest/pyboard/library/framebuf.html
-        self.fill = fb.fill  # (col)
-        self.pixel = fb.pixel # (x, y[, c])
-        self.hline = fb.hline  # (x, y, w, col)
-        self.vline = fb.vline  # (x, y, h, col)
-        self.line = fb.line  # (x1, y1, x2, y2, col)
-        self.rect = fb.rect  # (x, y, w, h, col)
-        self.fill_rect = fb.fill_rect  # (x, y, w, h, col)
-        self.text = fb.text  # (string, x, y, col=1)
-        self.scroll = fb.scroll  # (dx, dy)
-        self.blit = fb.blit  # (fbuf, x, y[, key])
-        self.init()
+        self._spi = spi
+        self._cs = cs
+        self._cs.init(self._cs.OUT, True)
+        self._num = num
+        self._buffer = bytearray(8 * self._num)
+
+        super().__init__(self._buffer, 8 * self._num, 8, MONO_HLSB)
+
+        self._write_init()
 
     def _write(self, command, data):
-        self.cs(0)
-        for m in range(self.num):
-            self.spi.write(bytearray([command, data]))
-        self.cs(1)
+        self._cs(0)
+        for _ in range(self._num):
+            self._spi.write(bytearray([command, data]))
+        self._cs(1)
 
-    def init(self):
+    def _write_init(self):
         for command, data in (
             (_SHUTDOWN, 0),
             (_DISPLAYTEST, 0),
@@ -90,9 +59,39 @@ class Matrix8x8:
             raise ValueError("Brightness out of range")
         self._write(_INTENSITY, value)
 
+    def text(self, s, x=0, y=0, c=1):
+        super().text(s, x, y, c)
+
+    def text_from_glyph(self, s, glyphs, x_offset=0, y_offset=0):
+        col = 0
+        for char in s:
+            glyph = glyphs.get(char)
+
+            if glyph:
+                for y in range(8):
+                    for x in range(8):
+                        self.pixel(x+col+x_offset, y+y_offset, glyph[y][x])
+            else:
+                self.text(char, col+x_offset, y_offset)
+
+            col += 8
+
     def show(self):
         for y in range(8):
-            self.cs(0)
-            for m in range(self.num):
-                self.spi.write(bytearray([_DIGIT0 + y, self.buffer[(y * self.num) + m]]))
-            self.cs(1)
+            self._cs(0)
+            for m in range(self._num):
+                self._spi.write(bytearray([_DIGIT0 + y, self._buffer[(y * self._num) + m]]))
+            self._cs(1)
+
+    def zero(self):
+        self.fill(0)
+
+    def shutdown(self):
+        self._write(_SHUTDOWN, 0)
+
+    def wake(self):
+        self._write(_SHUTDOWN, 1)
+
+    def test(self, enable=True):
+        self._write(_DISPLAYTEST, int(enable))
+

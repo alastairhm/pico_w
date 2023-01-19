@@ -21,7 +21,7 @@ for x in range(0,8):
         display.show()
         time.sleep(0.025)
         
-text = "Hello World"
+text = "Hello World!"
 for c in range(0,len(text)):
     display.text(text[c],0,0,1)
     display.show()
@@ -29,4 +29,19 @@ for c in range(0,len(text)):
     display.text(text[c],0,0,0)
     display.show()
     time.sleep(0.05)
-    
+   
+GLYPHS = {
+    "X": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 1, 0],
+        [0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+}
+display.text_from_glyph("X", GLYPHS)
+display.show()
+
