@@ -1,6 +1,11 @@
+"""
+Basic WIFI connection test on Raspberry Pi Pico W
+"""
+
 import time
 import network
 
+# Connection details stored on single space seperated line in a file on Pico format "SSID Password"
 f = open("wifi.txt", "r")
 wifi_details = f.readlines()
 f.close()
@@ -29,3 +34,4 @@ else:
     print("connected")
     status = wlan.ifconfig()
     print("ip = " + status[0])
+

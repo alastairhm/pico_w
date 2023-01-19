@@ -1,3 +1,7 @@
+"""
+Read internal and external temp sensor
+"""
+
 import utime
 from library import internal_temp, tmp36
 
