@@ -109,3 +109,17 @@ display.fill(0)
 display.text("P")
 display.show()
 time.sleep(0.5)
+
+#Rotate GLYPHS
+tmp_glyph = GLYPHS
+display = max7219.Matrix8x8(spi, ss, 1)
+display.fill(0)
+display.text_from_glyph("a", tmp_glyph)
+display.show()
+time.sleep(0.25)
+for i in range(0,8):
+    tmp_glyph.update({"a":list(zip(*tmp_glyph["a"][::-1]))})
+    display.text_from_glyph("a", tmp_glyph)
+    display.show()
+    time.sleep(0.25)
+
