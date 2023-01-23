@@ -28,7 +28,7 @@ Some example for Raspberry Pi Pico W with MicroPython
 * [Temperature Reading internal and external](https://blog.0x32.co.uk/posts/pico3/)
 * [Mandelbrot Set ASCII and OLED](https://blog.0x32.co.uk/posts/pico4/)
 * [LED Matrix](https://blog.0x32.co.uk/posts/pico5/)
-* [DHT11 Sensor](https://blog.0x32.co.uk/posts/pico5/)
+* [DHT11 Sensor](https://blog.0x32.co.uk/posts/pico6/)
 
 ## External Dependances
 
