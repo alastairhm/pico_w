@@ -7,6 +7,7 @@ Some example for Raspberry Pi Pico W with MicroPython
 ## Code Examples
 
 * [blink.py](blink.py) basic on board LED blink
+* [dht11.py](dht11.py) DHT11 Temperature and humidity sensor.
 * [i2c_scan.py](i2c_scan.py) Scan the IC2 Bus and test OLED display.
 * [led_matrix.py](led_matrix.py) Testing connecting a MAX7219 8x8 Led Matric to Pico.
 * [library/internal_temp.py](library/internal_temp.py) Class to read the internal temperature sensor.
@@ -26,6 +27,8 @@ Some example for Raspberry Pi Pico W with MicroPython
 * [SPI 1306 OLED](https://blog.0x32.co.uk/posts/pico2/)
 * [Temperature Reading internal and external](https://blog.0x32.co.uk/posts/pico3/)
 * [Mandelbrot Set ASCII and OLED](https://blog.0x32.co.uk/posts/pico4/)
+* [LED Matrix](https://blog.0x32.co.uk/posts/pico5/)
+* [DHT11 Sensor](https://blog.0x32.co.uk/posts/pico5/)
 
 ## External Dependances
 
