@@ -11,9 +11,19 @@ digits = [
     [ 0x2, 0x5, 0x3, 0x1, 0x6 ],
 ]
 
-print(digits)
+#print(digits)
+#for i in range(0,10):
+#    for r in digits[i]:
+#        print("{0:08b}".format(r))
+#    print("")
 
-for i in range(0,10):
-    for r in digits[i]:
-        print("{0:08b}".format(r))
-    print("")
+glyph = {}
+num = []
+
+number = 42
+for row in range(0,5):
+#    print("{0:08b}".format(digits[number//10][row] << 5 | digits[number%10][row]))
+    num.append("{0:08b}".format(digits[number//10][row] << 5 | digits[number%10][row]))
+
+for row in num:
+    print(row)
