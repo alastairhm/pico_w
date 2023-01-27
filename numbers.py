@@ -26,8 +26,8 @@ def compact_number(display, number, offx=0, offy=0, rotate=0):
         [0x2, 0x5, 0x2, 0x5, 0x2],
         [0x2, 0x5, 0x3, 0x1, 0x6],
     ]
-    num = []
-    for row in range(0, len(num[0]):
+    num = [] 
+    for row in range(0, len(digits[0])):
         num.append(
             "{0:08b}".format(digits[number // 10][row] << 4 | digits[number % 10][row])
         )
