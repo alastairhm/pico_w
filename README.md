@@ -13,6 +13,7 @@ Some example for Raspberry Pi Pico W with MicroPython
 * [library/internal_temp.py](library/internal_temp.py) Class to read the internal temperature sensor.
 * [library/tmp36.py](library/tmp36.py) Class to read temperature from TMP36 sensor of the kind described here [datasheet](http://cdn.sparkfun.com/datasheets/Sensors/Temp/TMP35_36_37.pdf)
 * [library/wifi.py](library/wifi.py) Class to setup Wifi Connection
+* [mac_address.py](mac_address.py) Get the MAC address of the Pico W
 * [mandelbrot.py](mandelbrot.py) ASCII Mandelbrot Set from [http://warp.povusers.org/MandScripts/python.html](http://warp.povusers.org/MandScripts/python.html)
 * [mand_oled.py](mand_oled.py) Mandelbrot Set displayed to OLED [https://youtube.com/shorts/dqHLxU5frKw?feature=share](https://youtube.com/shorts/dqHLxU5frKw?feature=share)
 * micropython-max7219 Sub Module of library for MAX7129 LED Matrix see below, upload to Pico.
