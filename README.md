@@ -19,6 +19,7 @@ Some example for Raspberry Pi Pico W with MicroPython
 * micropython-max7219 Sub Module of library for MAX7129 LED Matrix see below, upload to Pico.
 * micropython-ssd1306 Sub Module of library for OLED see below, upload to Pico.
 * [numbers.py](numbers.py) Compressed digits, fit 2 digit numbers into 8x5 LED space.
+* [pico_st7735](pico_st7735) Library and code for TFT display with ST7735 controller (WIP).
 * [temp_oled.py](temp_oled.py) Outputing temperature and IP address to OLED display.
 * [temps.py](temps.py) Example using the two temperature classes
 * [wifi.py](wifi.py) testing WIFI connection, reads connections details from `wifi.txt` stored on the Pico format  single line "SSID PASSWORD".

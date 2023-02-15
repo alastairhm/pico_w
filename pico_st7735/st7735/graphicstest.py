@@ -1,13 +1,11 @@
+'''
+Testing graphics on TFT display with ST7735 controller connected to Raspberry Pi Pico
+'''
 from ST7735 import TFT
 from sysfont import sysfont
 from machine import SPI,Pin
 import time
 import math
-spi = SPI(1, baudrate=20000000, polarity=0, phase=0,
-          sck=Pin(10), mosi=Pin(11), miso=None)
-tft=TFT(spi,16,17,18)
-tft.initr()
-tft.rgb(True)
 
 def testlines(color):
     tft.fill(TFT.BLACK)
@@ -158,4 +156,10 @@ def test_main():
     testtriangles()
     time.sleep_ms(500)
 
-test_main()
+if __name__ == "__main__":
+    spi = SPI(1, baudrate=20000000, polarity=0, phase=0,
+              sck=Pin(10), mosi=Pin(11), miso=None)
+    tft=TFT(spi,16,17,18)
+    tft.initr()
+    tft.rgb(True)
+    test_main()
