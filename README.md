@@ -39,3 +39,13 @@ Some example for Raspberry Pi Pico W with MicroPython
   + Upload directory `max7219` to Pico from `micropython-max7219`.
 * Library for MAX7219 LED Matrix [micropython-max7219](https://github.com/enchant97/micropython-max7219)
   + Upload file `ssd1306.py` to Pico from `micropython-ssd1306`.
+
+## On the blog
+
+* https://blog.0x32.co.uk/posts/pico/
+* https://blog.0x32.co.uk/posts/pico2/
+* https://blog.0x32.co.uk/posts/pico3/
+* https://blog.0x32.co.uk/posts/pico4/
+* https://blog.0x32.co.uk/posts/pico5/
+* https://blog.0x32.co.uk/posts/pico6/
+* https://blog.0x32.co.uk/posts/pico7/
